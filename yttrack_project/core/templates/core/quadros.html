@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block title %}Quadros — YTTrack{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Quadros</h2>
+  <a href="{% url 'core:novo_quadro' %}" class="btn new-card-btn">Novo Quadro +</a>
+</div>
+
+<div class="grid-quadros">
+  {% for q in quadros %}
+    <a href="{{ q.get_absolute_url }}" class="card-quadro">
+      <div class="card-cover" style="background: {{ q.cover_color }};"></div>
+      <div class="card-title">{{ q.nome }}</div>
+      {% if q.descricao %}<div class="card-desc">{{ q.descricao|truncatechars:80 }}</div>{% endif %}
+    </a>
+  {% empty %}
+    <p>Nenhum quadro. Crie um novo!</p>
+  {% endfor %}
+</div>
+{% endblock %}

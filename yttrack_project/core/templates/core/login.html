@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %}Login — YTTrack{% endblock %}
+
+{% block content %}
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="logo">
+      <div class="logo-badge">YT</div>
+      <h1>YTTrack</h1>
+      <p class="subtitle">Login</p>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <label class="label">E-mail</label>
+      <input type="text" name="email" class="form-input">
+      <label class="label">Senha</label>
+      <input type="password" name="password" class="form-input">
+      <button class="btn btn-primary big-btn" type="submit">Entrar</button>
+    </form>
+
+    <p class="text-center small-muted mt-3">
+      Não tem uma conta? <a href="#">Crie uma conta</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

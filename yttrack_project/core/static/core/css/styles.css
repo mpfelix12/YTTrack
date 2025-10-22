@@ -1,0 +1,85 @@
+body {
+  background: #f5f6fa;
+}
+.login-wrap {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:70vh;
+  padding:30px;
+}
+.login-card{
+  width:560px;
+  max-width:95%;
+  background:#fff;
+  border-radius:8px;
+  padding:36px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.12);
+  text-align:left;
+}
+.logo{
+  text-align:center;
+  margin-bottom:18px;
+}
+.logo-badge{
+  display:inline-block;
+  background:#e74c3c;
+  color:#fff;
+  border-radius:8px;
+  padding:10px 14px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.logo h1{ margin:6px 0 0 0; font-size:28px; }
+.subtitle{ margin:0 0 18px 0; color:#666; }
+.label{ display:block; margin:12px 0 6px 0; color:#333; font-weight:600; }
+.form-input{
+  width:100%;
+  padding:14px 12px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  background:#fafafa;
+  box-sizing:border-box;
+}
+.big-btn{
+  width:100%;
+  margin-top:18px;
+  padding:12px;
+  border-radius:8px;
+  background:#2b8bd6;
+  color:#fff;
+  border:none;
+  font-size:18px;
+}
+.small-muted{ color:#666; font-size:14px; margin-top:12px; text-align:center; }
+
+/* Grid de quadros */
+.grid-quadros {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap:28px;
+}
+.card-quadro {
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  padding:8px;
+}
+.card-cover{
+  height:140px;
+  border-radius:10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin-bottom:10px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card-quadro:hover .card-cover{
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+.card-title{ font-size:16px; margin-top:6px; color:#333; font-weight:700; }
+.card-desc{ color:#666; font-size:13px; margin-top:6px; }
+.new-card-btn{
+  background:#2b8bd6; color:#fff; border-radius:10px; padding:10px 16px; text-decoration:none;
+  border:none;
+}
+
