@@ -83,3 +83,50 @@ body {
   border:none;
 }
 
+/* Listagem de vídeos */
+.list-videos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.video-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.video-row.watched {
+  opacity: 0.7;
+}
+.thumb {
+  width: 160px;
+  height: 90px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 6px;
+}
+.info {
+  flex: 1;
+}
+.info h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.desc {
+  font-size: 14px;
+  color: #666;
+}
+.btn-outline {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background: #f0f0f0;
+}

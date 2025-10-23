@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect,  get_object_or_404
-from django.contrib.auth.decorators import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Quadro
 from .forms import QuadroForm
+from django.http import JsonResponse, HttpResponseForbidden
+from .forms import VideoForm
+from django.shortcuts import redirect
+
+def home(request):
+    return redirect('core:quadros')
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -48,3 +55,35 @@ def novo_quadro(request):
     else:
         form = QuadroForm()
     return render(request, 'core/quadro_form.html', {'form': form})
+
+
+@login_required
+def videos_por_quadro(request, pk):
+    quadro = get_object_or_404(Quadro, pk=pk)
+    videos = quadro.videos.all()
+    return render(request, 'core/videos.html', {'quadro': quadro, 'videos': videos})
+
+@login_required
+def novo_video(request, pk):
+    quadro = get_object_or_404(Quadro, pk=pk)
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            video = form.save(commit=False)
+            video.quadro = quadro
+            video.save()
+            messages.success(request, 'Vídeo adicionado com sucesso!')
+            return redirect('core:videos_por_quadro', pk=quadro.pk)
+    else:
+        form = VideoForm()
+    return render(request, 'core/video_form.html', {'form': form, 'quadro': quadro})
+
+
+@login_required
+def toggle_watched(request, pk):
+    if request.method != 'POST':
+        return HttpResponseForbidden()
+    video = get_object_or_404(video, pk=pk)
+    video.watched = not video.watched
+    video.save()
+    return JsonResponse({'watched': video.watched})

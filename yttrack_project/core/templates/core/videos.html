@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ quadro.nome }} — Vídeos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Vídeos de {{ quadro.nome }}</h2>
+  <a href="{% url 'core:quadros' %}" class="btn btn-link">← Voltar</a>
+</div>
+
+<div class="list-videos">
+    {% for v in videos %}
+  <div class="video-row {% if v.watched %}watched{% endif %}">
+    <div class="player">
+      {% if v.get_video_url %}
+        {% if "youtube.com/embed" in v.get_video_url %}
+          <iframe width="300" height="170" src="{{ v.get_video_url }}" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+          <video width="300" height="170" controls>
+            <source src="{{ v.get_video_url }}" type="video/mp4">
+          </video>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="info">
+      <h5>{{ v.titulo }}</h5>
+      <p class="desc">{{ v.descricao|truncatechars:120 }}</p>
+    </div>
+    <div class="actions">
+      <form method="post" class="watch-form" data-url="{% url 'core:toggle_watched' v.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline">
+          {% if v.watched %}Assistido{% else %}Marcar como assistido{% endif %}
+        </button>
+      </form>
+    </div>
+  </div>
+{% empty %}
+  <p>Nenhum vídeo neste quadro ainda.</p>
+{% endfor %}
+
+<a href="{% url 'core:novo_video' quadro.pk %}" class="btn btn-success mt-3">Adicionar novo vídeo</a>
+
+ 
+</div>
+
+<script>
+document.querySelectorAll('.watch-form').forEach(form=>{
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const url = this.dataset.url;
+    const csrftoken = this.querySelector('[name=csrfmiddlewaretoken]').value;
+    const resp = await fetch(url, {method:'POST', headers:{'X-CSRFToken': csrftoken}});
+    const data = await resp.json();
+    if(data.watched !== undefined){
+      const btn = this.querySelector('button');
+      btn.textContent = data.watched ? 'Assistido' : 'Marcar como assistido';
+      this.closest('.video-row').classList.toggle('watched', data.watched);
+    }
+  });
+});
+</script>
+{% endblock %}
